@@ -62,7 +62,7 @@ with open(filepath) as csvfile:
             greatest_decrease[1] = int(row["Revenue"])
 
 
-wfilepath = os.path.join("raw_data", "test.txt")
+wfilepath = os.path.join("raw_data", "results.txt")
 with open(wfilepath,"w+") as writer:
 
 

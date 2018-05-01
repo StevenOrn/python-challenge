@@ -55,13 +55,23 @@ with open(filepath) as csvfile:
          my_dict[row["Candidate"]] = my_dict.get(row["Candidate"], 0) + 1
          
 
-print("Election Results")
-print("-" * 28)
-print(f"Total Votes: {total_votes}")
-print("-" * 28)
-for key, value in my_dict.items() :
-    print (key,"{:.0%}".format(value/total_votes) , value)
-print("-" * 28)
-print(f"Winner: {max(my_dict.items())[0]}")
 
-print("-" * 28)
+
+wfilepath = os.path.join("raw_data", "results.txt")
+with open(wfilepath,"w+") as writer:
+
+    writer.write("Election Results\n")
+    writer.write("-" * 28)
+    writer.write(f"\nTotal Votes: {total_votes}\n")
+    writer.write("-" * 28)
+    for key, value in my_dict.items() :
+        writer.write (f"\n{key}")
+        writer.write("\t{:.0%}".format(value/total_votes))
+        writer.write(f"\t{value}\n")
+    writer.write("-" * 28)
+    writer.write(f"\nWinner: {max(my_dict.items())[0]}\n")
+
+    writer.write("-" * 28)
+
+    writer.seek(0) #points file back to beginning before printing
+    print(writer.read())

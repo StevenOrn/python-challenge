@@ -62,14 +62,19 @@ with open(filepath) as csvfile:
             greatest_decrease[1] = int(row["Revenue"])
 
 
+wfilepath = os.path.join("raw_data", "test.txt")
+with open(wfilepath,"w+") as writer:
 
 
-print(" Financial Analysis" )
-print("-" * 28)
-print(f"Total Months: {months}")
-print(f"Total Revenue: ${revenue}")
-print(f"Average Revenue Change: ${revenue / months}")
-print(f"Greatest Increase in Revenue: {greatest_increase}")
-print(f"Greatest Decrease in Revenue: {greatest_decrease}")
+    writer.write("Financial Analysis\n" )
+    writer.write("-" * 28)
+    writer.write(f"\nTotal Months: {months}\n")
+    writer.write(f"Total Revenue: ${revenue}\n")
+    writer.write(f"Average Revenue Change: ${revenue / months}\n")
+    writer.write(f"Greatest Increase in Revenue: {greatest_increase}\n")
+    writer.write(f"Greatest Decrease in Revenue: {greatest_decrease}\n")
+
+    writer.seek(0) #points file back to beginning before printing
+    print(writer.read())
 
 

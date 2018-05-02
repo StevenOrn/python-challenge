@@ -40,7 +40,7 @@
 
 import os
 import csv
-from datetime import datetime
+from datetime import datetime  #needed to change date format
 
 EMP = []
 FirstName = []
@@ -49,7 +49,7 @@ DOB = []
 SSN = []
 State = []
 
-
+# copy paste us_state_abbrev dict
 us_state_abbrev = {
     'Alabama': 'AL',
     'Alaska': 'AK',
@@ -105,37 +105,38 @@ us_state_abbrev = {
 
 
 
-filepath = os.path.join("raw_data", "employee_data1.csv")
+filepath = os.path.join("raw_data", "employee_data1.csv")   #input path
 
 with open(filepath) as csvfile:
     reader = csv.DictReader(csvfile)
 
-    for row in reader:
+    for row in reader:     #goes through each row in file and appends values to repective list
 
         EMP.append(row["Emp ID"])
 
-        #namesplit=row["Name"]
-        #namesplit.split(" ")
-        FirstName.append(row["Name"].split()[0])
+        FirstName.append(row["Name"].split()[0])     #splits row.Name and grabs first value (ie. first name)
         LastName.append(row["Name"].split()[1])
 
 
-        dateformat = datetime.strptime(row["DOB"],'%Y-%m-%d')
-        DOB.append( dateformat.strftime('%m/%d/%Y') )
+        dateformat = datetime.strptime(row["DOB"],'%Y-%m-%d')   #tells var date is stored as year-month-day
+        DOB.append( dateformat.strftime('%m/%d/%Y') )           #tells it to change to month/day/year
 
-        SSN.append("***-**-" + row["SSN"][-4:])
+        SSN.append("***-**-" + row["SSN"][-4:])                 #grabs last 4 of SSN and adds stars infront
 
-        State.append (us_state_abbrev[row["State"]])
+        State.append (us_state_abbrev[row["State"]])            #grabs row.State and uses that as a [key] in us_state_abbrev dict to get value
 
 
-data = zip(EMP, FirstName, LastName, DOB, SSN, State)
+data = zip(EMP, FirstName, LastName, DOB, SSN, State)           #zips lists into a dict of lists for easy csv export
 
-wfilepath = os.path.join("raw_data", "results.csv")
+wfilepath = os.path.join("raw_data", "results.csv")             #output path
 
 
 
 with open(wfilepath,"w+", newline="") as datafile:
     writer = csv.writer(datafile)
 
-    writer.writerow([ "Emp ID","First Name","Last Name","DOB","SSN","State"] )
-    writer.writerows(data) 
+    writer.writerow([ "Emp ID","First Name","Last Name","DOB","SSN","State"] )  #adds header to csv
+    writer.writerows(data)                                      #writes all zipped(lists) into csv
+
+
+    #maybe could have used pandas dataframe??

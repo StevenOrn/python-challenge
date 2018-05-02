@@ -36,34 +36,44 @@ import csv
 
 revenue = 0
 months = 0
-greatest_increase = ["",0]
+greatest_increase = ["",0]   #list that stores [date,revenue] of greatest rev increase
 greatest_decrease = ["",0]
 
-filepath = os.path.join("raw_data", "budget_data_1.csv")
+filepath = os.path.join("raw_data", "budget_data_1.csv")  #inpute file location
 
 with open(filepath) as csvfile:
     reader = csv.DictReader(csvfile)
-
-    
     
 
     for row in reader:
         
-        months+=1
+        months+=1     #counts how many months in file
 
-        revenue += int(row["Revenue"])
+        revenue += int(row["Revenue"])  #summates the revenue
 
-        if (int(row["Revenue"]) > greatest_increase[1]):
+        if (int(row["Revenue"]) > greatest_increase[1]):  #checks for greatest rev increase and saves in list
             greatest_increase[0] = row["Date"]
             greatest_increase[1] = int(row["Revenue"])
 
-        if (int(row["Revenue"]) < greatest_decrease[1]):
+        if (int(row["Revenue"]) < greatest_decrease[1]):  #checks for greatest rev decrease
             greatest_decrease[0] = row["Date"]
             greatest_decrease[1] = int(row["Revenue"])
 
 
-wfilepath = os.path.join("raw_data", "results.txt")
-with open(wfilepath,"w+") as writer:
+wfilepath = os.path.join("raw_data", "results.txt")   #outpute file path
+with open(wfilepath,"w+") as writer:                    #w+ writes even if no folder or file present I think
+
+    #writes exact output to file then goes back and reads that file to print it!!!!
+    #couldn't figure out how to (print to terminal) and (write to file) at same time so that was my solution
+
+
+    # Financial Analysis
+    # ----------------------------
+    # Total Months: 25
+    # Total Revenue: $1241412
+    # Average Revenue Change: $216825
+    # Greatest Increase in Revenue: Sep-16 ($815531)
+    # Greatest Decrease in Revenue: Aug-12 ($-652794)
 
 
     writer.write("Financial Analysis\n" )
@@ -75,6 +85,6 @@ with open(wfilepath,"w+") as writer:
     writer.write(f"Greatest Decrease in Revenue: {greatest_decrease}\n")
 
     writer.seek(0) #points file back to beginning before printing
-    print(writer.read())
+    print(writer.read()) #prints out file content
 
 

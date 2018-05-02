@@ -50,24 +50,44 @@ letter_count =0
 avg_letter =0.0
 avg_sentence = 0.0
 
-filepath = os.path.join("raw_data", "paragraph_1.txt")
+filepath = os.path.join("raw_data", "paragraph_1.txt")  #input path
 
 with open(filepath) as f:
 
     paragraph = f.read()
 
-    words = paragraph.count(" ") + 1
+    #words = the same number of spaces plus 1
+    words = paragraph.count(" ") + 1         
+
+    #sentences = the number of punctuation marks           
     sentences = paragraph.count(".") + paragraph.count("?") + paragraph.count("!")
+
+    #letters = all characters minus space and punctuation marks
     letter_count = len(paragraph) - (words -1) - sentences
+
+
     avg_letter = letter_count / words
     avg_sentence = words / sentences
 
+
+
+
+    # Paragraph Analysis
+    # -----------------
+    # Approximate Word Count: 122
+    # Approximate Sentence Count: 5
+    # Average Letter Count: 4.56557377049
+    # Average Sentence Length: 24.4
     print("Paragraph Analysis")
     print("-" * 28)
     print(f"Approximate Word Count: {words}")
     print(f"Approximate Sentence Count: {sentences}")
     print(f"Average Letter Count: {avg_letter}")
     print(f"Average Sentence Length: {avg_sentence}")
+
+
+    #I think they wanted us to use (import re)  and (re.split("(?&lt;=[.!?]) +", paragraph)) to split pargraph into sentence lists 
+    #then count sentences (len(sentence_list) and then maybe splitting into words words=senteces.split(" ") but this way was easier
 
 
 
